@@ -1,0 +1,3 @@
+Tipos em TS
+
+Compile para js e veja a diferença

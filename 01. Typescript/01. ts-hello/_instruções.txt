@@ -1,0 +1,7 @@
+1. Criar pasta ts-hello e arquivo main.ts
+- fazer conforme anexo e transpilá-lo para js:
+- tsc main.ts
+
+2. executar main.js no node
+- node main.js
+

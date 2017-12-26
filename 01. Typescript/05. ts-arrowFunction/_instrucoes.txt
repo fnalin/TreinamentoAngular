@@ -1,0 +1,2 @@
+Arrow (seta)
+Igual à lambda expression no C#

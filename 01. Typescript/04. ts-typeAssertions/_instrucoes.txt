@@ -1,0 +1,1 @@
+Verifique que o intellisense só aparece após o cast

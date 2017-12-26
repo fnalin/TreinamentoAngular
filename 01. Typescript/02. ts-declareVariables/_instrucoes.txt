@@ -1,0 +1,2 @@
+var = declara sempre com o escopo de função
+let = seu escopo é no código, como o c#

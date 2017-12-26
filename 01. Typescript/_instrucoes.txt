@@ -1,0 +1,5 @@
+-- Instalar TS:
+npm install -g typescript
+
+-- Verificar versão:
+tsc --version

@@ -1,0 +1,24 @@
+Modules
+
+- é o container de um ou um grupo de components
+- toda a aplicação possui o AppModule para iniciar a aplicação
+
+
+class Greeter {
+   greet(name:string) {
+     return 'Hello ' + name + '!';
+   }
+}
+
+@NgModule({
+  providers: [
+    Greeter
+  ]
+})
+class HelloWorld {
+  greeter:Greeter;
+
+  constructor(greeter:Greeter) {
+    this.greeter = greeter;
+  }
+}

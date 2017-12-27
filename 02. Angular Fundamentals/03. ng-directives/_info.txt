@@ -1,0 +1,4 @@
+- Fazer demo:
+    - crie um array na classe do componente e o utilize numa diretiba *ngFor
+
+https://angular.io/guide/structural-directives#!#asterisk

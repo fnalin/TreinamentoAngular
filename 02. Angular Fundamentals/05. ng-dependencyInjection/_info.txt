@@ -1,0 +1,3 @@
+- Fazer demo:
+    - injete o serviço no componente e o configure como provider no módulo
+

@@ -1,0 +1,33 @@
+Components
+- Encapsula:
+    - data
+    - html template
+    - logic
+
+https://angular.io/api/core/Component
+
+
+Descrição
+
+O decorador de componentes permite marcar uma classe como um componente angular e fornecer metadados adicionais que determinam como o componente deve ser processado, instanciado e usado no tempo de execução.
+
+Os componentes são o bloco de construção mais básico de uma UI em uma aplicação Angular. Uma aplicação angular é uma árvore de componentes angulares. Os componentes angulares são um subconjunto de diretrizes. Ao contrário das diretivas, os componentes sempre possuem um modelo e apenas um componente pode ser instanciado por um elemento em um modelo.
+
+Um componente deve pertencer a um NgModule para que ele possa ser usado por outro componente ou aplicativo. Para especificar que um componente é um membro de um NgModule, você deve listá-lo no campo de declarações desse NgModule.
+
+Além da configuração de metadados especificada através do decorador de Componentes, os componentes podem controlar seu comportamento de tempo de execução implementando vários ganchos do ciclo de vida.
+
+
+
+Ex.:
+@Component(
+    {
+        selector: 'greet', template: 'Hello {{name}}!'
+    }
+)
+
+class Greet {
+  name: string = 'World';
+}
+
+

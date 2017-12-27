@@ -1,0 +1,16 @@
+Passos para criar um componente:
+    - Criar o componente
+    - Registrá-lo num módulo
+    - Adicionar elementos no seu html
+
+
+- Fazer demo:
+    - ng new demo-component
+    - acessar pasta demo-component e rodar no cli ng serve
+    - criar na pasta app o demo.component.ts
+    - referenciá-lo em app.module
+    - alterar o html do app.component.html p/ conter o seletor da demo
+    - gerar um 2. componente através do angular-cli:
+        - ng g c Demo2Component
+        - mostre que já referenciou no app.module.ts e adicione o seu seletor
+        - mais: https://github.com/angular/angular-cli/wiki/generate-component

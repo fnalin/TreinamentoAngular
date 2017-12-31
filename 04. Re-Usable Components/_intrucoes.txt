@@ -1,0 +1,2 @@
+Input properties = passa informação ao componente
+Output properties = dispara eventos a partir do componente

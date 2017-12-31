@@ -1,0 +1,164 @@
+Sobre Polyfill
+Explicando de forma prática, para que qualquer um entenda: Você quer usar um recurso muito bom do javascript, por exemplo fetch() ou Promise().
+Mas aí alguns navegadores e o Internet Explorer (que não é um navegador), não possuem suporte a este recurso. De uma forma bem mal feita, você coloca aquele if maroto para saber se o navegador tem suporte e, caso não tenha, você usa alguma forma alternativa, ou até mesmo diz logo ao usuário que ele não pode usar tal recurso.
+Usando um pollyfill, este vai detectar que o navegador não tem suporte e vai implementar na hora ali, usando gambiarras funções disponíveis para aquele navegador, e vai fazer com que seja possível usar o recurso com a mesma interface inclusive. No caso é como se o navegador tivesse suporte a tal recurso.
+Futuramente, se o navegador passar a ter suporte ao recurso, o pollyfill pode ser desativado para ele, já que a implementação do código é a mesma, nada muda.
+
+core-js
+Deixa o window com características essenciais do ES2015 (ES6).
+Você pode substituí-lo por um polyfill alternativo que fornece as mesmas APIs principais.
+Quando essas APIs são implementadas pelos principais navegadores, essa dependência se tornará desnecessária.
+
+rxjs
+Reactive Extensions Library for JavaScript, que inclui métodos para transformar, compor e consultar fluxos de dados.
+Ele é utilizado por várias partes da estrutura Angular, como os módulos HTTP e Forms.
+A biblioteca fornece uma implementação observável, que atualmente é uma característica proposta para ser incluída em futuras versões do idioma JavaScript.
+
+zone.js
+Um polyfill para a especificação Zone, que também foi proposto para inclusão na linguagem JavaScript.
+O Zone.js fornece o mecanismo para se conectar a operações assíncronas e rastrear tarefas assíncronas pendentes.
+Angular faz isso criando seu próprio NgZone que aguarda até que todas as operações assíncronas, como temporizadores e pedidos de XHR, sejam concluídas e desencadeiam a detecção de mudanças.
+
+1. Inicie o projeto npm com "npm init"
+
+2. Instale os pacotes:
+    npm i --save core-js zone.js rxjs
+
+3. Instale o SystemJS:
+    npm i --save systemjs
+
+4. Crie o arquivo de configuração do SystemJS (systemjs.config.js):
+    System.config({
+        paths: {
+        'npm:': '/node_modules/'
+        },
+        map: {
+        app: 'dist/app',
+        '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
+        '@angular/common': 'npm:@angular/common/bundles/common.umd.js',
+        '@angular/compiler': 'npm:@angular/compiler/bundles/compiler.umd.js',
+        '@angular/platform-browser': 'npm:@angular/platform-browser/bundles/platform-browser.umd.js',
+        '@angular/platform-browser-dynamic': 'npm:@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+        'core-js': 'npm:core-js',
+        'zone.js': 'npm:zone.js',
+        'rxjs': 'npm:rxjs',
+        'tslib': 'npm:tslib/tslib.js'
+        },
+        packages: {
+        'dist/app': {},
+        'rxjs': {},
+        'core-js': {},
+        'zone.js': {}
+        }
+    });
+
+****
+@angular/core
+Partes críticas de tempo de execução da estrutura necessária para cada aplicativo. Inclui todos os decoradores de metadados, Componente, Diretiva, injeção de dependência e ganchos do ciclo de vida dos componentes. Contém as principais visualizações de componentes de funcionalidade, DI e detecção de alterações.
+
+@angular/compiler
+Ele lê seus templates e pode convertê-los em código que faz o aplicativo executar e renderizar.
+Normalmente, você não interage com o compilador diretamente; Em vez disso, você usa indiretamente via plataforma-navegador-dinâmico ou o compilador de modelo off-line.
+
+@angular/common
+Fornece os services, pipes e directives comumente necessários, como ngIf e ngFor.
+
+@angular/platform-browser
+Contém a funcionalidade para inicializar o aplicativo em um navegador.
+Basicamente, inclui todo o DOM e componentes relacionados ao navegador, especialmente os que ajudam a formar o DOM.
+Pode não ser necessário se você usar Angular na plataforma diferente do navegador (por exemplo, angular-iot).
+
+@angular/platform-browser-dynamic
+Faz a compilação em tempo de execução
+
+****
+
+5. Instale as dependencias do Angular
+    npm i --save @angular/core @angular/compiler @angular/common @angular/platform-browser @angular/platform-browser-dynamic
+
+6. Inclua o TS como dev dependencies
+    npm i --save-dev typescript
+
+7. Crie o tsconfig.json:
+    {
+        "compilerOptions": {
+            "outDir": "dist",
+            "module": "commonjs",
+            "moduleResolution": "node",
+            "experimentalDecorators": true,
+            "emitDecoratorMetadata": true,
+            "lib": [
+            "dom",
+            "es2015"
+            ]
+        }
+    }
+
+8. Adicione o index.html
+    <html>
+        <head>
+            <title>Hello, Angular</title>
+        </head>
+        <body>
+            <app-main>Loading...</app-main>
+            <script src="node_modules/systemjs/dist/system.src.js"></script>
+            <script src="systemjs.config.js"></script>
+            <script>
+            System.import('dist/main.js').catch(function (err) {
+                console.error(err);
+            });
+            </script>
+        </body>
+    </html>
+
+9. Crie o componente que será reinderizado na tag <app-main>
+    em src/app/app.component.ts
+        
+        import { Component } from '@angular/core';
+        @Component({
+        selector: 'app-main',
+        template: '<h1>Hello, {{name}}</h1>'
+        })
+        export class AppComponent {
+        name = 'Angular';
+        }
+
+10. Crie o módulo inicial da aplicação:
+    src/app/app.module.ts
+
+    import { AppComponent } from './app.component';
+    import { NgModule } from '@angular/core';
+    import { BrowserModule } from '@angular/platform-browser';
+    @NgModule({
+        imports: [BrowserModule],
+        declarations: [AppComponent],
+        bootstrap: [AppComponent]
+    })
+    export class AppModule { }
+
+11. Crie o bootstrapper da aplicação e acionado no SystemJS
+    src/main.ts
+
+    import 'core-js/es7/reflect';
+    import 'zone.js/dist/zone';
+    import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+    import { AppModule } from './app/app.module';
+    platformBrowserDynamic().bootstrapModule(AppModule);
+
+12. Faça o build da aplicação através do script build criado no package.json
+    npm run build
+*obs.: repare na pasta dist
+
+13. Para servir essa aplicação web instale o live-server:
+    npm i --save-dev live-server
+
+14. Atualize o package.json e crie um noco script:
+    "scripts": {
+    "build": "tsc",
+    "start": "live-server"
+    },
+
+15. Rode o server com o npm start
+*obs.: o nodejs deverá abrir o endereço  http://127.0.0.1:8080
+
+

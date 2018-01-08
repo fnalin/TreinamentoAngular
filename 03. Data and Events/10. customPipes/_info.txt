@@ -1,0 +1,1 @@
+Ver arquivo main.component.ts e summary.pipe.ts

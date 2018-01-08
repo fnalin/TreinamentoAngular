@@ -152,7 +152,7 @@ Faz a compilação em tempo de execução
 13. Para servir essa aplicação web instale o live-server:
     npm i --save-dev live-server
 
-14. Atualize o package.json e crie um noco script:
+14. Atualize o package.json e crie um novo script:
     "scripts": {
     "build": "tsc",
     "start": "live-server"
